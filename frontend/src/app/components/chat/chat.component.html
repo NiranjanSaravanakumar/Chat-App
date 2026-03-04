@@ -1,0 +1,110 @@
+<div class="chat-app">
+    <!-- Sidebar: User List -->
+    <aside class="sidebar" [class.sidebar-open]="showSidebar">
+        <div class="sidebar-header">
+            <div class="brand">
+                <span class="brand-icon">💬</span>
+                <h2>Chats</h2>
+            </div>
+            <button class="btn-icon logout-btn" (click)="logout()" title="Logout">
+                🚪
+            </button>
+        </div>
+
+        <div class="current-user-info">
+            <div class="avatar avatar-sm">{{ getInitial(currentUser?.username || '') }}</div>
+            <div class="user-meta">
+                <span class="username">{{ currentUser?.username }}</span>
+                <span class="status-text online">Online</span>
+            </div>
+        </div>
+
+        <div class="user-list">
+            <div class="section-label">All Users</div>
+            <div class="user-item" *ngFor="let user of users" [class.active]="selectedUser?._id === user._id"
+                (click)="selectUser(user)">
+                <div class="avatar">
+                    {{ getInitial(user.username) }}
+                    <span class="status-dot" [class.online]="isOnline(user._id)"></span>
+                </div>
+                <div class="user-info">
+                    <span class="user-name">{{ user.username }}</span>
+                    <span class="user-status" [class.online]="isOnline(user._id)">
+                        {{ isOnline(user._id) ? 'Online' : 'Offline' }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="empty-users" *ngIf="users.length === 0">
+                <span>👥</span>
+                <p>No users yet</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Chat Area -->
+    <main class="chat-area">
+        <!-- No user selected -->
+        <div class="no-chat" *ngIf="!selectedUser">
+            <div class="no-chat-content">
+                <div class="no-chat-icon">💬</div>
+                <h2>Start a Conversation</h2>
+                <p>Select a user from the sidebar to begin chatting</p>
+            </div>
+        </div>
+
+        <!-- Chat with selected user -->
+        <ng-container *ngIf="selectedUser">
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <button class="btn-icon back-btn" (click)="toggleSidebar()">
+                    ←
+                </button>
+                <div class="avatar avatar-sm">
+                    {{ getInitial(selectedUser.username) }}
+                    <span class="status-dot" [class.online]="isOnline(selectedUser._id)"></span>
+                </div>
+                <div class="chat-header-info">
+                    <h3>{{ selectedUser.username }}</h3>
+                    <span class="header-status" [class.online]="isOnline(selectedUser._id)">
+                        {{ isOnline(selectedUser._id) ? 'Online' : 'Offline' }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Messages -->
+            <div class="messages-area" #messagesContainer>
+                <div class="messages-list">
+                    <div class="message-bubble" *ngFor="let msg of messages" [class.sent]="isMyMessage(msg)"
+                        [class.received]="!isMyMessage(msg)">
+                        <div class="bubble-content">
+                            <p>{{ msg.message }}</p>
+                            <span class="msg-time">
+                                {{ msg.createdAt | date:'shortTime' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typing indicator -->
+                <div class="typing-indicator" *ngIf="typingUserId">
+                    <div class="typing-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <span class="typing-text">{{ selectedUser.username }} is typing...</span>
+                </div>
+            </div>
+
+            <!-- Message Input -->
+            <div class="chat-input-area">
+                <div class="input-container">
+                    <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" (input)="onTyping()"
+                        placeholder="Type a message..." class="message-input" />
+                    <button class="send-btn" (click)="sendMessage()" [disabled]="!newMessage.trim()">
+                        <span class="send-icon">➤</span>
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </main>
+</div>
