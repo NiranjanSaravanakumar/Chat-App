@@ -8,7 +8,7 @@ import { User } from '../models/user.model';
     providedIn: 'root',
 })
 export class ChatService {
-    private readonly API_URL = 'http://localhost:5000/api';
+    private readonly API_URL = 'http://10.171.196.10:5000/api';
 
     constructor(private http: HttpClient) { }
 

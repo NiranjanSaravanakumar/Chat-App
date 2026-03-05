@@ -32,10 +32,10 @@ const activeUsers = new Map();
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
-    cors: { origin: 'http://localhost:4200', methods: ['GET', 'POST'] },
+    cors: { origin: '*', methods: ['GET', 'POST'] },
 });
 
-app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
+app.use(cors({ origin: '*', credentials: false }));
 app.use(express.json());
 
 // ─── Helper ───
@@ -180,7 +180,7 @@ io.on('connection', (socket) => {
 
 // ─── Start ───
 const PORT = 5000;
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
     console.log(`\n🚀 Mock Server running on http://localhost:${PORT}`);
     console.log(`📡 Socket.IO ready`);
     console.log(`👥 Pre-loaded ${users.length} users & ${messages.length} messages`);

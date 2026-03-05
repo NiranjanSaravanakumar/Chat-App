@@ -12,7 +12,7 @@ import {
     providedIn: 'root',
 })
 export class AuthService {
-    private readonly API_URL = 'http://localhost:5000/api/auth';
+    private readonly API_URL = 'http://10.171.196.10:5000/api/auth';
     private currentUserSubject = new BehaviorSubject<User | null>(null);
     public currentUser$ = this.currentUserSubject.asObservable();
 

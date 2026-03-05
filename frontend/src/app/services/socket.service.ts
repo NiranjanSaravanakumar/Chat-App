@@ -8,7 +8,7 @@ import { Message, SendMessagePayload } from '../models/message.model';
 })
 export class SocketService {
     private socket!: Socket;
-    private readonly SERVER_URL = 'http://localhost:5000';
+    private readonly SERVER_URL = 'http://10.171.196.10:5000';
 
     connect(): void {
         this.socket = io(this.SERVER_URL);

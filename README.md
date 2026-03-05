@@ -140,6 +140,36 @@ MongoDB (Message Storage)
 
 ---
 
+## 📋 Requirements
+
+Before running this project, make sure you have the following installed on your machine:
+
+| Tool | Version | Purpose |
+|---|---|---|
+| [Node.js](https://nodejs.org/) | v18+ (LTS recommended) | Backend runtime |
+| npm | v9+ (comes with Node.js) | Package manager |
+| [Angular CLI](https://angular.io/cli) | v17+ | Frontend dev server & build |
+| [Git](https://git-scm.com/) | Any recent version | Clone the repository |
+| MongoDB Atlas Account | — | Cloud database (free tier works) |
+
+### ✅ Verify Your Setup
+
+Run these commands in your terminal to confirm everything is installed:
+
+```bash
+node -v        # Should print v18.x.x or higher
+npm -v         # Should print v9.x.x or higher
+ng version     # Should print Angular CLI version
+git --version  # Should print git version
+```
+
+> **Note:** If `ng` is not found, install Angular CLI globally:
+> ```bash
+> npm install -g @angular/cli
+> ```
+
+---
+
 ## ⚙️ Installation & Setup
 
 ### 1️⃣ Clone the Repository
